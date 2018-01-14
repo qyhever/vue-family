@@ -1,6 +1,9 @@
 <template>
   <div id="app">
-  	<img src="./assets/logo.png" height="200" width="200" alt="">
+  	<img src="./assets/logo.png" alt="">
+  	<div class="container">
+  		
+  	</div>
   </div>
 </template>
 
@@ -8,8 +11,16 @@
 
 </script>
 
-<style scoped>
-	img {
-		width: 100%;
+<style scoped lang="scss">
+	#app {
+		.container {
+			width: 200px;
+			height: 200px;
+			border: 1px solid #f00;
+			box-shadow: 0 0 8px #000;
+			transition: all .2s;
+			border-radius: 10px;
+			display: flex;
+		}
 	}
 </style>

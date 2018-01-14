@@ -6,10 +6,18 @@ const webpack = require('webpack');
 const htmlWP = require('html-webpack-plugin');
 
 module.exports = {
+    devtool: 'eval-source-map',
     entry: path.resolve(__dirname, 'src/main.js'),
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'build.js'
+    },
+    devServer: {
+        //注意：不写hot: true,colors:true，progress:true等，webpack2.x已不支持这些
+        inline:true, // 默认是true
+        host: '127.0.0.1',
+        port: 8090,
+        historyApiFallback: true,
     },
     module: {
     	rules: [
@@ -52,11 +60,11 @@ module.exports = {
     ]
     },
     plugins: [
-        	
-        		new htmlWP({
-	                title: '首页', // 生成的页面标题
-	                filename: 'index.html', // webpack-dev-server在内存中生成的文件名称，自动将build.js注入到这个页面底部
-	                template: 'index.html' // 根据工程根目录下的index.html这个模板来生成
-	            })
+        new webpack.HotModuleReplacementPlugin(),
+		new htmlWP({
+            title: '首页', // 生成的页面标题
+            filename: 'index.html', // webpack-dev-server在内存中生成的文件名称，自动将build.js注入到这个页面底部
+            template: 'index.html' // 根据工程根目录下的index.html这个模板来生成
+        })
     ]
 }

@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config webpack.develop.config.js --hot --inline --progress --colors --open --port 9999",
+    "dev": "webpack-dev-server --config webpack.develop.config.js --open --inline",
     "build": "webpack --config webpack.publish.config.js"
   },
   "repository": {
@@ -20,6 +20,7 @@
   },
   "homepage": "https://github.com/queryselectorAll/webpack-vue-config#readme",
   "devDependencies": {
+    "autoprefixer": "^7.2.5",
     "babel-core": "^6.26.0",
     "babel-loader": "^7.1.2",
     "babel-plugin-transform-runtime": "^6.23.0",
@@ -45,5 +46,10 @@
     "axios": "^0.17.1",
     "vue": "^2.5.13",
     "vue-router": "^3.0.1"
-  }
+  },
+  "browserslist": [
+    "> 1%",
+    "last 5 versions",
+    "not ie <= 8"
+  ]
 }
