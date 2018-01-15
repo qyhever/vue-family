@@ -6,8 +6,18 @@ const webpack = require('webpack');
 const htmlWP = require('html-webpack-plugin');
 // 删除文件夹
 const CleanPlugin = require('clean-webpack-plugin');
-// 分离css
-const ExtractCssPlugin = require('extract-text-webpack-plugin');
+// 分离css插件
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
+// 分离引入的css（less，scss）
+const ExtractRootCss = new ExtractTextPlugin({
+    filename: 'root.css',
+    allChunks: false
+});
+// 分离vue文件内样式
+const ExtractVueCss = new ExtractTextPlugin({
+    filename: 'style/[name]/style.css',
+    allChunks: true
+});
 // css压缩
 const OptimizeCssAssetsPlugin = require('optimize-css-assets-webpack-plugin');
 
@@ -27,7 +37,26 @@ module.exports = {
             // 解析vue文件
             {
                 test: /\.vue$/,
-                use: 'vue-loader'
+                loader: 'vue-loader',
+                // vue文件内样式提取
+                options: {
+                    // 这里使用ExtractVueCss
+                    loaders: {
+                        'css': ExtractVueCss.extract({
+                            use: 'css-loader',
+                            fallback: 'vue-style-loader'
+                            // vue-style-loader是vue-loader的依赖,使用npm3以上，则不需要显式安装
+                        }),
+                        'less': ExtractVueCss.extract({
+                            use:['css-loader','less-loader'],
+                            fallback: 'vue-style-loader'
+                        }),
+                        'scss': ExtractVueCss.extract({
+                            use:['css-loader','sass-loader'],
+                            fallback: 'vue-style-loader'
+                        }),
+                    }
+                }
             },
             // js文件es6转es5
             {
@@ -38,20 +67,28 @@ module.exports = {
             // 处理在js中引用css文件 + 分离css
             {
                 test: /\.css$/,
-                use: ExtractCssPlugin.extract({
+                use: ExtractRootCss.extract({
                     fallback: 'style-loader',
                     use: 'css-loader'
                 })
             },
-            // 处理在js中引用less文件
+            // 处理在js中引用less文件 + 分离css
             {
                 test: /\.less$/,
-                use: ['style-loader', 'css-loader', 'less-loader']
+                // use: ['style-loader', 'css-loader', 'less-loader']
+                use: ExtractRootCss.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader','less-loader']
+                })
             },
-            // 处理在js中引用scss文件 + 抽取scss
+            // 处理在js中引用scss文件 + 分离css
             {
                 test: /\.scss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
+                // use: ['style-loader', 'css-loader', 'sass-loader']
+                use: ExtractRootCss.extract({
+                    fallback: 'style-loader',
+                    use: ['css-loader','sass-loader']
+                })
             },
             // 处理图片，25K是临界值，小于limit值转换成base64字符串内嵌到js代码中,大于limit值的图片转成URL进行网络请求
             {
@@ -111,7 +148,10 @@ module.exports = {
             }
         }),
         // 分离css文件
-        new ExtractCssPlugin('app.css'),
+        // new ExtractTextPlugin('app.css'),
+        ExtractVueCss, // 填入插件实例，vue内的css
+        ExtractRootCss,// 填入插件实例，复用的css
+
         // css压缩
         new OptimizeCssAssetsPlugin({
             assetNameRegExp: /\.(css|less|scss)$/g,

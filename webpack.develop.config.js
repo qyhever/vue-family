@@ -21,7 +21,7 @@ module.exports = {
     },
     module: {
     	rules: [
-        // 解析vue文件
+        // 解析vue文件，vue-loader会把vue文件转成js
         {
             test: /\.vue$/,
             use: 'vue-loader'
@@ -30,12 +30,13 @@ module.exports = {
         {
             test: /\.js$/,
             use: 'babel-loader',
-            exclude: /node_modules/
+            exclude: /node_modules/ // 排除node_modules目录
         },
         // 处理在js中引用css文件
         {
             test: /\.css$/,
             use: ['style-loader', 'css-loader']
+            //也可以写成 loader："style-loader!css-loader!postcss-loader"
         },
         // 处理在js中引用less文件
         {
@@ -47,15 +48,21 @@ module.exports = {
             test: /\.scss$/,
             use: ['style-loader', 'css-loader', 'sass-loader']
         },
-        // 处理图片，25K是临界值，小于limit值转换成base64字符串内嵌到js代码中,大于limit值的图片转成URL进行网络请求
         {
             test: /\.(png|jpg|jpeg|gif)$/,
-            use: 'url-loader?limit=25000&name=images/[name].[ext]'
+            // use: 'url-loader?limit=25000&name=images/[name].[ext]'
+            loader: 'url-loader',
+            options: {
+                limit: 10000,
+                name: 'images/[name].[ext]?[hash]'
+            }
+            // 小于limit的数值，会被改写成base64填入url里面，
+            // 不然会输出到dist/images目录下，[name]原文件名，[ext]原后缀，[hash]在url上加上一点哈希值避免缓存。
         },
         // 处理iconfont
         {
             test: /\.(eot|woff|ttf|woff2|svg)$/,
-            use: 'url-loader?limit=2500&name=fonts/[name].[ext]'
+            use: 'url-loader?limit=2500&name=fonts/[name].[ext]?[hash]'
         }
     ]
     },

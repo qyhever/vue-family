@@ -7,7 +7,8 @@ import App from './App.vue';
 Vue.config.productionTip = false;
 
 // 导入重置样式
-
+import '../static/css/base.css';
+import '../static/css/global.less';
 // 导入axios请求库
 // import axios from 'axios';
 // Vue.prototype.$axios = axios;
