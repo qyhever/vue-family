@@ -13,11 +13,12 @@
 </script>
 
 <style scoped lang="scss">
+	$baseColor: #00f;
 	#app {
 		.container {
 			width: 200px;
 			height: 200px;
-			border: 1px solid #000;
+			border: 1px solid $baseColor;
 			box-shadow: 0 0 8px #000;
 			transition: all .2s;
 			border-radius: 10px;

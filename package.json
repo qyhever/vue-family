@@ -49,7 +49,9 @@
   },
   "browserslist": [
     "> 1%",
-    "last 5 versions",
-    "not ie <= 8"
+    "last 20 versions",
+    "ie 6",
+    "Firefox <= 20",
+    "Opera <= 20"
   ]
 }
