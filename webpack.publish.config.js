@@ -30,7 +30,8 @@ module.exports = {
     output: {
         path: path.resolve(__dirname, 'dist'),
         filename: 'build.js',
-        sourceMapFilename: '[name].map'
+        sourceMapFilename: '[name].map',
+        publicPath: '/'
     },
     module: {
         rules: [
@@ -48,11 +49,11 @@ module.exports = {
                             // vue-style-loader是vue-loader的依赖,使用npm3以上，则不需要显式安装
                         }),
                         'less': ExtractVueCss.extract({
-                            use:['css-loader','less-loader'],
+                            use: ['css-loader', 'less-loader'],
                             fallback: 'vue-style-loader'
                         }),
                         'scss': ExtractVueCss.extract({
-                            use:['css-loader','sass-loader'],
+                            use: ['css-loader', 'sass-loader'],
                             fallback: 'vue-style-loader'
                         }),
                     }
@@ -78,7 +79,7 @@ module.exports = {
                 // use: ['style-loader', 'css-loader', 'less-loader']
                 use: ExtractRootCss.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader','less-loader']
+                    use: ['css-loader', 'less-loader']
                 })
             },
             // 处理在js中引用scss文件 + 分离css
@@ -87,7 +88,7 @@ module.exports = {
                 // use: ['style-loader', 'css-loader', 'sass-loader']
                 use: ExtractRootCss.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader','sass-loader']
+                    use: ['css-loader', 'sass-loader']
                 })
             },
             // 处理图片，25K是临界值，小于limit值转换成base64字符串内嵌到js代码中,大于limit值的图片转成URL进行网络请求
@@ -150,7 +151,7 @@ module.exports = {
         // 分离css文件
         // new ExtractTextPlugin('app.css'),
         ExtractVueCss, // 填入插件实例，vue内的css
-        ExtractRootCss,// 填入插件实例，复用的css
+        ExtractRootCss, // 填入插件实例，复用的css
 
         // css压缩
         new OptimizeCssAssetsPlugin({
