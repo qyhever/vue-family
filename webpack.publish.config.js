@@ -31,7 +31,8 @@ module.exports = {
         path: path.resolve(__dirname, 'dist'),
         filename: 'build.js',
         sourceMapFilename: '[name].map',
-        publicPath: '/'
+        publicPath: '/',
+        chunkFilename: "[name].[chunkHash:8].js"
     },
     module: {
         rules: [
@@ -107,7 +108,8 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         // 分离第三方包插件
         new webpack.optimize.CommonsChunkPlugin({
-            name: 'vendors',
+            // name: 'vendors',
+            names: ['vendor', 'manifest'],
             filename: 'vendors.js'
         }),
         // html压缩
