@@ -20,7 +20,6 @@ import '../static/css/global.less';
 
 
 
-
 new Vue({
     el: '#app',
     // router,

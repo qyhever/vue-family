@@ -10,7 +10,7 @@ const CleanPlugin = require('clean-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 // 分离引入的css（less，scss）
 const ExtractRootCss = new ExtractTextPlugin({
-    filename: 'root.css',
+    filename: '[name].css',
     allChunks: false
 });
 // 分离vue文件内样式
@@ -89,7 +89,7 @@ module.exports = {
                 // use: ['style-loader', 'css-loader', 'sass-loader']
                 use: ExtractRootCss.extract({
                     fallback: 'style-loader',
-                    use: ['css-loader', 'sass-loader']
+                    use: 'css-loader!sass-loader'
                 })
             },
             // 处理图片，25K是临界值，小于limit值转换成base64字符串内嵌到js代码中,大于limit值的图片转成URL进行网络请求
@@ -108,8 +108,8 @@ module.exports = {
         new webpack.HotModuleReplacementPlugin(),
         // 分离第三方包插件
         new webpack.optimize.CommonsChunkPlugin({
-            // name: 'vendors',
-            names: ['vendor', 'manifest'],
+            name: 'vendors',
+            // names: ['vendor', 'manifest'],
             filename: 'vendors.js'
         }),
         // html压缩

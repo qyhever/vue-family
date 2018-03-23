@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "dev": "webpack-dev-server --config webpack.develop.config.js --open --inline",
-    "build": "webpack --config webpack.publish.config.js"
+    "dev": "webpack-dev-server --config webpack.dev.conf.js --open",
+    "build": "webpack --config webpack.pro.conf.js"
   },
   "repository": {
     "type": "git",
@@ -40,7 +40,8 @@
     "url-loader": "^0.6.2",
     "vue-loader": "^13.7.0",
     "vue-template-compiler": "^2.5.13",
-    "webpack": "^3.10.0"
+    "webpack": "^3.10.0",
+    "webpack-dev-server": "^2.9.4"
   },
   "dependencies": {
     "axios": "^0.17.1",
