@@ -20,10 +20,6 @@ function resolve(dir) {
   return path.join(__dirname, '..', dir)
 }
 
-// hash 整个项目有文件更改就会更新
-// chunkhash 根据入口文件、依赖关系构建对应的 chunk
-// contenthash 针对文件内容级别
-
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
   entry: {

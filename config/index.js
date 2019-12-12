@@ -14,12 +14,15 @@ module.exports = {
     // https://www.webpackjs.com/configuration/devtool/
     devtool: 'cheap-module-eval-source-map',
     showEslintErrorsInOverlay: false,
-    cssSourceMap: true
+    cssSourceMap: true,
+    parallel: true
   },
   build: {
+    parallel: true,
     index: path.resolve(__dirname, '../public/index.html'),
     assetsRoot: path.resolve(__dirname, '../dist'),
     assetsSubDirectory: 'public',
+    // if your application is not on root dir, you should update it `/xxx/`
     assetsPublicPath: '/',
     productionSourceMap: true,
     devtool: 'source-map',

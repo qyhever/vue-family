@@ -18,11 +18,11 @@ const createLintingRule = () => ({
   enforce: 'pre',
   include: [resolve('src')],
   options: {
-    // formatter: require('eslint-friendly-formatter'),
+    formatter: require('eslint-friendly-formatter'),
     // emitWarning: !config.dev.showEslintErrorsInOverlay
   }
 })
-
+const parallel = process.env.NODE_ENV === 'development' ? config.dev.parallel : config.build.parallel
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
@@ -47,8 +47,7 @@ module.exports = {
         include: [
           resolve('src')
         ],
-        use: ['babel-loader?cacheDirectory']
-        // use: ['happypack/loader?id=happy-babel-js']
+        use: parallel ? ['happypack/loader?id=happy-babel-js'] : ['babel-loader?cacheDirectory']
       },
       {
         test: /\.svg$/,
@@ -87,11 +86,11 @@ module.exports = {
   },
   plugins: [
     new VueLoaderPlugin(),
-    // new HappyPack({
-    //   id: 'happy-babel-js',
-    //   loaders: ['babel-loader?cacheDirectory'],
-    //   threadPool: happyThreadPool,
-    // }),
+    ...(parallel ? [new HappyPack({
+      id: 'happy-babel-js',
+      loaders: ['babel-loader?cacheDirectory'],
+      threadPool: happyThreadPool,
+    })] : []),
     // new webpack.DllReferencePlugin({
     //   manifest: resolve('public/dll/mainfist.json')
     // })

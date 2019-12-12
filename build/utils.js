@@ -62,7 +62,16 @@ exports.cssLoaders = function(options) {
   return {
     css: generateLoaders(),
     postcss: generateLoaders(),
-    less: generateLoaders('less'),
+    // less: generateLoaders('less'),
+    // import global less file
+    less: generateLoaders('less').concat({
+      loader: 'sass-resources-loader',
+        options:{
+            resources: [
+                path.join(__dirname, '../src/assets/styles/global.less')
+            ]
+        }
+    }),
     sass: generateLoaders('sass', {
       indentedSyntax: true
     }),

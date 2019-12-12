@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "npm run dev",
-    "dev": "cross-env MODE=dev webpack-dev-server --progress --color --config build/webpack.dev.config.js",
+    "dev": "cross-env MODE=dev webpack-dev-server --color --config build/webpack.dev.config.js",
     "build": "npm run build:prod",
     "build:test": "cross-env MODE=test node build/build.js",
     "build:prod": "cross-env MODE=prod node build/build.js",
@@ -70,6 +70,7 @@
     "postcss-loader": "^3.0.0",
     "postcss-url": "^8.0.0",
     "rimraf": "^2.6.3",
+    "sass-resources-loader": "^2.0.1",
     "serve-static": "^1.13.2",
     "style-loader": "^0.23.1",
     "svg-sprite-loader": "^4.1.6",

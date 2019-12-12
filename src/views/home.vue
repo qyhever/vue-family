@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="home">
     <h3>home</h3>
     <router-link to="/about">
       <el-link type="primary">about page</el-link>
@@ -22,5 +22,7 @@
 </script>
 
 <style lang="less">
-  // ...
+  .home {
+    background-color: @primary-background;
+  }
 </style>
