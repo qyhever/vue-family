@@ -19,14 +19,17 @@ const createLintingRule = () => ({
   include: [resolve('src')],
   options: {
     formatter: require('eslint-friendly-formatter'),
-    // emitWarning: !config.dev.showEslintErrorsInOverlay
+    emitWarning: !config.dev.showEslintErrorsInOverlay
   }
 })
 const parallel = process.env.NODE_ENV === 'development' ? config.dev.parallel : config.build.parallel
 module.exports = {
   context: path.resolve(__dirname, '../'),
   entry: {
-    app: './src/main.js'
+    app: [
+    '@babel/polyfill',
+      './src/main.js'
+    ]
   },
   resolve: {
     extensions: ['.js', '.vue', '.json'],

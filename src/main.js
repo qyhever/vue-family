@@ -6,7 +6,6 @@ import store from './store'
 import './plugins'
 // the styles must be after the element-ui
 import './assets/styles/index.less'
-
 new Vue({
   el: '#app',
   store,

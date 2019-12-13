@@ -22,9 +22,6 @@ function resolve(dir) {
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   mode: 'development',
-  entry: {
-    app: [resolve('src/main.js')]
-  },
   output: {
     path: resolve('dist'),
     filename: '[name].js',

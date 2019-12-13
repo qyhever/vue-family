@@ -21,11 +21,6 @@ function resolve(dir) {
 
 const webpackConfig = merge(baseWebpackConfig, {
   mode: 'production',
-  entry: {
-    app: [
-      resolve('src/main.js')
-    ]
-  },
 
   output: {
     path: config.build.assetsRoot,
